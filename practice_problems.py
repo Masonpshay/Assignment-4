@@ -13,9 +13,22 @@ Output: False
 """
 
 def has_duplicates(product_ids):
-    # Your implementation here
-    pass
+    seen = set()
+    for pid in product_ids:
+        if pid in seen:
+            return True
+        seen.add(pid)
+    return False
 
+# Test cases
+print(has_duplicates([10, 20, 30, 20, 40]))  
+print(has_duplicates([1, 2, 3, 4, 5]))       
+print(has_duplicates([]))                    
+print(has_duplicates([1, 1, 1]))             
+
+# Justification:
+# A set allows fast checking if a product ID has been seen before.
+# Each ID is checked once and extra memory is used for the set.
 
 """
 Problem 2: Order Manager
@@ -32,15 +45,28 @@ task_queue.remove_oldest_task() → "Email follow-up"
 
 class TaskQueue:
     def __init__(self):
-        # Your initialization here
-        pass
+        self.queue = []  
 
     def add_task(self, task):
-        pass
+        self.queue.append(task)  
 
     def remove_oldest_task(self):
-        pass
+        if self.queue:
+            return self.queue.pop(0)  
+        return None
 
+# Test cases
+tasks = TaskQueue()
+tasks.add_task("Email follow-up")
+tasks.add_task("Code review")
+print(tasks.remove_oldest_task())  
+print(tasks.remove_oldest_task())  
+print(tasks.remove_oldest_task())  
+
+
+# Justification:
+# A list preserves order and allows adding to the end quickly.
+# Removing from the front is simple but slightly slower for long lists.
 
 """
 Problem 3: Unique Value Counter
@@ -57,10 +83,25 @@ tracker.get_unique_count() → 2
 
 class UniqueTracker:
     def __init__(self):
-        pass
+        self.seen = set()  
 
     def add(self, value):
-        pass
+        self.seen.add(value)  
 
     def get_unique_count(self):
-        pass
+        return len(self.seen)  
+
+# Test cases
+tracker = UniqueTracker()
+tracker.add(10)
+tracker.add(20)
+tracker.add(10)
+print(tracker.get_unique_count())  
+tracker.add(30)
+print(tracker.get_unique_count())  
+tracker.add(20)
+print(tracker.get_unique_count())  
+
+# Justification:
+# A set ensures uniqueness automatically and allows fast checking.
+# Counting unique values is as simple as getting the length of the set.
